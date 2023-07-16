@@ -22,4 +22,8 @@ ADD . .
 
 EXPOSE 8000
 
+RUN ls /usr/local/cuda-11.0/targets/x86_64-linux/lib/
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.0/targets/x86_64-linux/lib/
+
 CMD python3 -u app.py
