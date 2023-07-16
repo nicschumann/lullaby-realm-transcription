@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install -y git
 
 ADD . .
 
+RUN ls /usr/lib/x86_64-linux-gnu/
+
 EXPOSE 8000
 
-RUN ls /usr/
-RUN ls /usr/local/nvidia/lib
-RUN ls /usr/local/nvidia/lib64
+# Maybe 
 
 CMD python3 -u app.py
