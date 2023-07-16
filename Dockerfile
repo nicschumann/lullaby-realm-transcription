@@ -9,21 +9,20 @@ WORKDIR /
 RUN apt-get update && apt-get install -y git
 
 # Install python packages
-RUN pip3 install --upgrade pip
-ADD requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# RUN pip3 install --upgrade pip
+# ADD requirements.txt requirements.txt
+# RUN pip3 install -r requirements.txt
 
 # Add your model weight files 
 # (in this case we have a python script)
-ADD download.py .
-RUN python3 download.py
+# ADD download.py .
+# RUN python3 download.py
 
 ADD . .
 
 EXPOSE 8000
 
-RUN ls /usr/local/cuda-11.0/targets/x86_64-linux/lib/
+RUN ls /usr/local/cuda-11.0/targets/
 
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.0/targets/x86_64-linux/lib/
 
 CMD python3 -u app.py
