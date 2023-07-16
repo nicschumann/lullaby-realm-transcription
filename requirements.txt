@@ -40,3 +40,4 @@ tqdm
 typing_extensions
 urllib3
 Werkzeug
+nvidia-cublas-cu11
