@@ -22,9 +22,8 @@ ADD . .
 
 EXPOSE 8000
 
-RUN ls /usr/bin/
-
-RUN echo $LD_LIBRARY_PATH
-
+RUN ls /usr/
+RUN ls /usr/local/nvidia/lib
+RUN ls /usr/local/nvidia/lib64
 
 CMD python3 -u app.py
