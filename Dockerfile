@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y git
 
 ADD . .
 
-RUN ls /usr/local/lib/x86_64-linux-gnu/
+RUN nvcc --version
+RUN which nvcc
 
 EXPOSE 8000
 
