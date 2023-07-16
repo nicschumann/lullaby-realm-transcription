@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y git
 
 ADD . .
 
-RUN ls /usr/lib/x86_64-linux-gnu/
+RUN ls /usr/local/lib/x86_64-linux-gnu/
 
 EXPOSE 8000
 
