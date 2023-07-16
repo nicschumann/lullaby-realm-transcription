@@ -22,7 +22,9 @@ ADD . .
 
 EXPOSE 8000
 
-RUN ls /usr/lib/
+RUN ls /usr/bin/
+
+RUN echo $LD_LIBRARY_PATH
 
 
 CMD python3 -u app.py
