@@ -22,7 +22,7 @@ ADD . .
 
 EXPOSE 8000
 
-RUN ls /usr/local/cuda-11.0/targets/
+RUN ls /usr/local/
 
 
 CMD python3 -u app.py
