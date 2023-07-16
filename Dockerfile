@@ -8,6 +8,9 @@ WORKDIR /
 # Install git
 RUN apt-get update && apt-get install -y git
 
+# Install cuBLAS
+RUN apt-get install libcublas11.6
+
 # Install python packages
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
