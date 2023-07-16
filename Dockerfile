@@ -20,9 +20,6 @@ RUN pip3 install -r requirements.txt
 
 ADD . .
 
-RUN nvcc --version
-RUN which nvcc
-
 RUN ls /usr/lib/x86_64-linux-gnu
 
 EXPOSE 8000
