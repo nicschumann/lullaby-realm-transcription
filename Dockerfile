@@ -22,7 +22,7 @@ ADD . .
 
 EXPOSE 8000
 
-RUN ls /usr/local/lib
+RUN ls /usr/local/bin
 
 
 CMD python3 -u app.py
