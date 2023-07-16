@@ -10,7 +10,7 @@ def download_model():
     device = 'cuda' if has_cuda else 'cpu'
     precision = 'float16' if has_cuda else 'int8'
     model_size = 'large-v2'
-    model = WhisperModel(model_size, device=device, precision=precision)
+    _ = WhisperModel(model_size, device=device, compute_type=precision)
 
 if __name__ == "__main__":
     download_model()
