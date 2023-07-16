@@ -20,7 +20,7 @@ RUN pip3 install -r requirements.txt
 
 ADD . .
 
-RUN ls /usr/lib/x86_64-linux-gnu
+RUN find / -name libcudnn_ops_infer.so.8
 
 EXPOSE 8000
 
