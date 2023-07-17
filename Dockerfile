@@ -22,6 +22,9 @@ ADD . .
 
 EXPOSE 8000
 
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/python3.8/site-packages/nvidia/cudnn/lib/
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/lib/python3.8/site-packages/nvidia/cublas/lib/
+
 # Maybe 
 
 CMD python3 -u app.py
