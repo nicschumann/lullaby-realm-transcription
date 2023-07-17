@@ -4,6 +4,7 @@ from time import perf_counter
 
 from faster_whisper import WhisperModel
 import numpy as np
+import subprocess
 import torch
 
 app = Potassium("my_app")
@@ -27,70 +28,78 @@ def init():
 @app.handler()
 def handler(context: dict, request: Request) -> Response:
 
-    # Get the model
-    model : WhisperModel = context.get("model")
+    # # Get the model
+    # model : WhisperModel = context.get("model")
     
-    # Set start timestamp
-    s = perf_counter()
+    # # Set start timestamp
+    # s = perf_counter()
         
-    # Decode the request
-    string_data = request.json.get("bytes")
-    shape = request.json.get("shape")
-    beam_size = int(request.json.get("beam_size"))
-    language = request.json.get("language")
-    encoding = request.json.get('encoding')
+    # # Decode the request
+    # string_data = request.json.get("bytes")
+    # shape = request.json.get("shape")
+    # beam_size = int(request.json.get("beam_size"))
+    # language = request.json.get("language")
+    # encoding = request.json.get('encoding')
 
-    byte_data = string_data.encode(encoding)
-    array_data = base64.b64decode(byte_data)
-    audio_buffer = np.frombuffer(array_data, dtype=np.float32)
+    # byte_data = string_data.encode(encoding)
+    # array_data = base64.b64decode(byte_data)
+    # audio_buffer = np.frombuffer(array_data, dtype=np.float32)
 
-    # Begin transcription    
-    segments, _ = model.transcribe(
-        audio_buffer,
-        beam_size=beam_size,
-        language=language,
-        vad_filter=False,
-        word_timestamps=True
-    )
+    # # Begin transcription    
+    # segments, _ = model.transcribe(
+    #     audio_buffer,
+    #     beam_size=beam_size,
+    #     language=language,
+    #     vad_filter=False,
+    #     word_timestamps=True
+    # )
 
-    result = []
+    # result = []
 
-    for speech in segments:
+    # for speech in segments:
 
-        words = list(map(lambda w: {"start": w.start, "end": w.end, "word": w.word, "prob": w.probability}, speech.words))
+    #     words = list(map(lambda w: {"start": w.start, "end": w.end, "word": w.word, "prob": w.probability}, speech.words))
 
-        segment_result = {
-            "speaker": 'User',
-            "start": speech.start,
-            "end": speech.end,
-            "text": speech.text,
-            "words": words
-        }
+    #     segment_result = {
+    #         "speaker": 'User',
+    #         "start": speech.start,
+    #         "end": speech.end,
+    #         "text": speech.text,
+    #         "words": words
+    #     }
 
-        # merge results, if needed...
-        if len(result) > 0: # and abs(speech.start - result[-1].end) < 0.05:
-            d = speech.words[0].start - result[-1]['words'][-1]['end']
+    #     # merge results, if needed...
+    #     if len(result) > 0: # and abs(speech.start - result[-1].end) < 0.05:
+    #         d = speech.words[0].start - result[-1]['words'][-1]['end']
             
-            if d < 0.5: # arbitrary threshold
-                result[-1]['end'] = speech.end
-                result[-1]['text'] += speech.text
-                result[-1]['words'] += words
+    #         if d < 0.5: # arbitrary threshold
+    #             result[-1]['end'] = speech.end
+    #             result[-1]['text'] += speech.text
+    #             result[-1]['words'] += words
 
-            else:
-                result.append(segment_result)
+    #         else:
+    #             result.append(segment_result)
 
-        else:
-            result.append(segment_result)
+    #     else:
+    #         result.append(segment_result)
 
-    e = perf_counter()
+    # e = perf_counter()
 
-    response_json = {
-        'duration': (e - s),
-        'segments': result
-    }
+    # response_json = {
+    #     'duration': (e - s),
+    #     'segments': result
+    # }
+
+    # return Response(
+    #     json = response_json, 
+    #     status=200
+    # )
+    command_list = request.json.get('command')
+
+    res = subprocess.run(command_list, capture_output=True, text=True)
 
     return Response(
-        json = response_json, 
+        json={'stdout': res.stdout, 'stderr': res.stderr},
         status=200
     )
 
