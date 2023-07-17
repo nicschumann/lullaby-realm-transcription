@@ -12,14 +12,14 @@ app = Potassium("my_app")
 # @app.init runs at startup, and loads models into the app's context
 @app.init
 def init():
-    has_cuda = torch.cuda.is_available()
-    device = 'cuda' if has_cuda else 'cpu'
-    precision = 'float16' if has_cuda else 'int8'
-    model_size = 'large-v2'
-    model = WhisperModel(model_size, device=device, compute_type=precision)
+    # has_cuda = torch.cuda.is_available()
+    # device = 'cuda' if has_cuda else 'cpu'
+    # precision = 'float16' if has_cuda else 'int8'
+    # model_size = 'large-v2'
+    # model = WhisperModel(model_size, device=device, compute_type=precision)
    
     context = {
-        "model": model
+        "model": None
     }
 
     return context
