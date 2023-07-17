@@ -13,7 +13,7 @@ app = Potassium("my_app")
 @app.init
 def init():
     has_cuda = torch.cuda.is_available()
-    device = 'cuda:0' if has_cuda else 'cpu'
+    device = 'cuda' if has_cuda else 'cpu'
     precision = 'float16' if has_cuda else 'int8'
     model_size = 'large-v2'
     model = WhisperModel(model_size, device=device, compute_type=precision)
