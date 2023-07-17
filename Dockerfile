@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y git
 
 # Install python packages
 RUN python3 -m venv .env
-RUN source .env/bin/activate
+RUN . .env/bin/activate
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
